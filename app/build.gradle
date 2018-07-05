@@ -20,9 +20,56 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0-alpha3'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //Gson解析
+    implementation 'com.google.code.gson:gson:2.2.4'
+//Imageloader
+    implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+//上拉刷新下拉加载
+    implementation 'com.github.userswlwork:pull-to-refresh:1.0.0'
+//OkHttp3
+    implementation  'com.squareup.okhttp3:okhttp:3.10.0'
+//瀑布流
+    //noinspection GradleCompatible
+    implementation   'com.android.support:recyclerview-v7:27.1.0'
+//无限轮播
+    implementation  'com.youth.banner:banner:1.4.9'
+//底部导航栏
+    implementation 'com.hjm:BottomTabBar:1.1.1'
+//其他依赖
+    implementation 'com.facebook.fresco:fresco:1.9.0'
+// 支持 GIF 动图，需要添加
+    implementation 'com.facebook.fresco:animated-gif:1.9.0'
+// 支持 WebP （静态图+动图），需要添加
+    implementation 'com.facebook.fresco:animated-webp:1.9.0'
+// 仅支持 WebP 静态图，需要添加
+    implementation 'com.facebook.fresco:webpsupport:1.9.0'
+//订阅者Eventbus
+    implementation 'org.greenrobot:eventbus:3.1.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+//Rxjava观察者
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.1'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+//请求网络数据框架
+    implementation 'com.squareup.retrofit2:retrofit:2.0.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+//数据库框架
+    implementation'org.greenrobot:greendao:3.0.1'
+    implementation'org.greenrobot:greendao-generator:3.0.0'
+//下拉刷新,上拉加载
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5'
+//没有使用特殊Header，可以不加这行
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5'
+//Dagger2    
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
+    implementation 'com.google.dagger:dagger:2.4'
+    implementation 'org.glassfish:javax.annotation:10.0-b28'    
 }

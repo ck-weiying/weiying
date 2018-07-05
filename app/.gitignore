@@ -1,1 +1,10 @@
 /build
+.DS_Store
+.classpath
+.project
+/.settings
+/bin
+/gen
+/patch
+project.properties
+/assets
