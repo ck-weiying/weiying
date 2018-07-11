@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -10,9 +10,235 @@
 
     <style name="Splash" parent="AppTheme">
         <!--欢迎页背景-->
-        <item name="android:windowBackground">@drawable/a</item>
+        <!--<item name="android:windowBackground">@drawable/a</item>-->
+        <!--<item name="android:windowIsTranslucent">true</item>-->
         <!--全屏模式-->
         <!--<item name="android:windowFullscreen">true</item>-->
         <!-- <item name="android:windowIsTranslucent">true</item> --> <!-- 透明背景 -->
+    </style>
+    <!--<style name="Theme.NoBackgroundAndTitleMain" parent="android:Theme.Translucent">-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowIsTranslucent">false</item>-->
+    <!--</style>-->
+    <style name="Appwelcome" parent="android:Theme.Translucent.NoTitleBar.Fullscreen"></style>
+
+    <!--blueTheme-->
+    <style name="BlueTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorBluePrimary</item>
+        <item name="colorPrimaryDark">@color/colorBluePrimaryDark</item>
+        <item name="colorAccent">@color/colorBluePrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorBluePrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/blue_background</item>
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+    <!--redTheme-->
+    <style name="RedTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorRedPrimary</item>
+        <item name="colorPrimaryDark">@color/colorRedPrimaryDark</item>
+        <item name="colorAccent">@color/colorRedPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorRedPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/red_background</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+    <!--brownTheme-->
+    <style name="BrownTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorBrownPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBrownPrimaryDark</item>
+        <item name="colorAccent">@color/colorBrownPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorBrownPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/brown_background</item>
+        <item name="background">@mipmap/bg</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+    <!--greenTheme-->
+    <style name="GreenTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorGreenPrimary</item>
+        <item name="colorPrimaryDark">@color/colorGreenPrimaryDark</item>
+        <item name="colorAccent">@color/colorGreenPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorGreenPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/green_background</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+    <!--purpleTheme-->
+    <style name="PurpleTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPurplePrimary</item>
+        <item name="colorPrimaryDark">@color/colorPurplePrimaryDark</item>
+        <item name="colorAccent">@color/colorPurplePrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorPurplePrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/purple_background</item>
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+    <!--tealTheme-->
+    <style name="TealTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorTealPrimary</item>
+        <item name="colorPrimaryDark">@color/colorTealPrimaryDark</item>
+        <item name="colorAccent">@color/colorTealPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorTealPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/teal_background</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+    <!--pinkTheme-->
+    <style name="PinkTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPinkPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPinkPrimaryDark</item>
+        <item name="colorAccent">@color/colorPinkPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorPinkPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/pink_background</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+    <!--deepPurpleTheme-->
+    <style name="DeepPurpleTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorDeepPurplePrimary</item>
+        <item name="colorPrimaryDark">@color/colorDeepPurplePrimaryDark</item>
+        <item name="colorAccent">@color/colorDeepPurplePrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorDeepPurplePrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/deep_purple_background</item>
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+    <!--orange-->
+    <style name="OrangeTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/colorOrangePrimaryDark</item>
+        <item name="colorAccent">@color/colorOrangePrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorOrangePrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/orange_background</item>
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+
+    <!--indigo-->
+    <style name="IndigoTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorIndigoPrimary</item>
+        <item name="colorPrimaryDark">@color/colorIndigoPrimaryDark</item>
+        <item name="colorAccent">@color/colorIndigoPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorIndigoPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/indigo_background</item>
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+
+    <!--cyan-->
+    <style name="CyanTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorCyanPrimary</item>
+        <item name="colorPrimaryDark">@color/colorCyanPrimaryDark</item>
+        <item name="colorAccent">@color/colorCyanPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorCyanPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/cyan_background</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+
+    <!--lightGreen-->
+    <style name="LightGreenTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorLightGreenPrimary</item>
+        <item name="colorPrimaryDark">@color/colorLightGreenPrimaryDark</item>
+        <item name="colorAccent">@color/colorLightGreenPrimaryDark</item>
+        <item name="menuBackground">@drawable/light_green_background</item>
+        <item name="colorPrimaryLight">@color/colorLightGreenPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+
+    <!--lime-->
+    <style name="LimeTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorLimePrimary</item>
+        <item name="colorPrimaryDark">@color/colorLimePrimaryDark</item>
+        <item name="colorAccent">@color/colorLimePrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorLimePrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/lime_background</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+
+    <!--deepOrange-->
+    <style name="DeepOrangeTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorDeepOrangePrimary</item>
+        <item name="colorPrimaryDark">@color/colorDeepOrangePrimaryDark</item>
+        <item name="colorAccent">@color/colorDeepOrangePrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorDeepOrangePrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/deep_orange_background</item>
+        <item name="background">@mipmap/bg_colorful</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+
+    <!--blueGrey-->
+    <style name="BlueGreyTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/colorBlueGreyPrimary</item>
+        <item name="colorPrimaryDark">@color/colorBlueGreyPrimaryDark</item>
+        <item name="colorAccent">@color/colorBlueGreyPrimaryDark</item>
+        <item name="colorPrimaryLight">@color/colorBlueGreyPrimary</item>
+        <item name="md_title_color">@color/white</item>
+        <item name="menuBackground">@drawable/blue_grey_background</item>
+        <item name="background">@mipmap/bg_blue</item>
+        <item name="mine_background">@mipmap/my_bg_colorful</item>
+        <item name="card_background">@mipmap/card_bg_def</item>
+    </style>
+
+    <!--black-->
+    <style name="BlackTheme" parent="AppTheme">
+        <item name="colorPrimary">@color/dark_black</item>
+        <item name="md_title_color">@color/dark_green</item>
+        <item name="colorPrimaryLight">@color/dark_black</item>
+        <item name="menuBackground">@mipmap/bg</item>
+        <item name="background">@mipmap/bg</item>
+        <item name="mine_background">@mipmap/my_bg</item>
+        <item name="card_background">@mipmap/card_bg</item>
+    </style>
+
+
+    <style name="MenuStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/dp_25</item>
+        <item name="android:layout_marginBottom">@dimen/dp_1</item>
+        <item name="android:layout_marginRight">@dimen/dp_80</item>
+        <item name="android:padding">@dimen/dp_10</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/dp_16</item>
     </style>
 </resources>

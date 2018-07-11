@@ -41,5 +41,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     abstract void initData();
     abstract P initPresenter();
     abstract int setChildContentView();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (p != null){
+            p.detachView();
+        }
+    }
 }
 
