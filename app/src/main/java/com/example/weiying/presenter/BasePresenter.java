@@ -14,4 +14,5 @@ public class BasePresenter <P extends IBaseView> {
     public  P getMiBaseView(){
         return  miBaseView;
     }
+
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/sift_search_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_12"
+            android:layout_weight="1"
+            android:background="@drawable/sift_search_bg">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="@dimen/dp_12"
+                android:layout_height="wrap_content"
+                android:outlineAmbientShadowColor="@color/colorAlpha"
+                android:src="@drawable/search_select" />
+
+            <EditText
+                style="@null"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_10"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageView"
+                android:layout_toRightOf="@+id/imageView"
+                android:background="@null"
+                android:gravity="center" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/Toback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dp_1"
+            android:gravity="center"
+            android:text="取消" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/sift_search_title"
+        android:background="@drawable/bg"
+        android:padding="@dimen/dp_3">
+
+        <LinearLayout
+            android:id="@+id/sousuo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/sift_cath"
+                android:textColor="@color/colorWrite" />
+
+            <ImageView
+                android:id="@+id/detalis_delete"
+                android:layout_width="@dimen/dp_8"
+                android:layout_height="@dimen/dp_8"
+                android:src="@drawable/ic_delete" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sousuo"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sift_text"
+                android:textColor="@color/colorWrite" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:numColumns="2">
+
+        </GridView>
+    </RelativeLayout>
+</RelativeLayout>
