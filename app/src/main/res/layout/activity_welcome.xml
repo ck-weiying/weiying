@@ -9,15 +9,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/welcome"/>
+        android:src="@mipmap/welcome"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="37dp"
+        android:layout_marginBottom="@dimen/dp_20"
         android:gravity="center_vertical"
         android:text="微影"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp_10" />
+        android:textSize="@dimen/sp_20" />
 </RelativeLayout>

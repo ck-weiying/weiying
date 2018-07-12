@@ -1,0 +1,13 @@
+<com.example.weiying.view.customview.ColorRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_68"
+    android:paddingTop="@dimen/dp_20">
+    <com.example.weiying.view.customview.ColorTextView
+        android:id="@+id/title_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/sp_20"
+        android:textStyle="bold" />
+</com.example.weiying.view.customview.ColorRelativeLayout>

@@ -15,10 +15,13 @@ public class RetrofitUtils {
     public RetrofitUtils getInstance(){
 
         if (retrofitUtils==null){
+           synchronized (RetrofitUtils.class){
+                if(retrofitApi==null){
 
-            retrofitUtils = new RetrofitUtils();
+                    retrofitUtils = new RetrofitUtils();
+                }
+            }
         }
-
         return retrofitUtils;
     }
     static {
@@ -29,5 +32,6 @@ public class RetrofitUtils {
                 .build();
         retrofitApi = retrofit.create(RetrofitApi.class);
     }
+
 
 }
