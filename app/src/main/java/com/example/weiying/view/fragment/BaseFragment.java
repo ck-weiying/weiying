@@ -45,12 +45,4 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     abstract void initData();
     abstract P initPresenter();
     abstract int setChildContentView();
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (p != null){
-            p.detachView();
-        }
-    }
 }

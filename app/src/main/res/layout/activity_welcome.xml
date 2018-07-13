@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="100dp"
-        android:gravity="center"
+        android:layout_marginBottom="@dimen/dp_100"
+        android:gravity="center_horizontal"
         android:text="微影"
         android:textColor="@android:color/white"
-        android:textSize="23sp"/>
+        android:textSize="@dimen/dp_23"/>
 </RelativeLayout>

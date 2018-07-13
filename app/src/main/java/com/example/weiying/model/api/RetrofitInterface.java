@@ -1,5 +1,11 @@
 package com.example.weiying.model.api;
 
+import com.example.weiying.application.Constants;
+import com.example.weiying.model.bean.FeaturedBean;
+
+import io.reactivex.Observable;
+import retrofit2.http.GET;
+
 /**
  * author:Created by WangZhiQiang on 2018/7/6.
  */
@@ -10,5 +16,6 @@ public interface RetrofitInterface {
 //    @POST("product/getCarts")
 //    @FormUrlEncoded
 //    Observable<CartBean> getCartBean(@FieldMap HashMap<String, String> map);
-
+        @GET(Constants.FEATURED_DATA_PATH)
+        Observable<FeaturedBean> getFeaturedBean();
 }

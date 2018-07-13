@@ -10,6 +10,7 @@ import com.example.weiying.utils.ViewAttributeUtil;
 import com.example.weiying.view.interfaces.ColorUiInterface;
 
 /**
+ * 自定义容器   可使用自定义属性
  * author:Created by WangZhiQiang on 2018/7/10.
  */
 public class ColorRelativeLayout extends RelativeLayout implements ColorUiInterface {

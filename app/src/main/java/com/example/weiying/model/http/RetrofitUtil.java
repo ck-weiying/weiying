@@ -2,6 +2,7 @@ package com.example.weiying.model.http;
 
 import android.util.Log;
 
+import com.example.weiying.application.Constants;
 import com.example.weiying.model.api.RetrofitInterface;
 
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class RetrofitUtil{
     //默认的baseUrl
     public static RetrofitUtil getInstance(){
         if (null == retrofitUtil){
-            return  getInstance("http://api.tianapi.com/");
+            return  getInstance(Constants.BASE_URL);
         }
         return retrofitUtil;
     }

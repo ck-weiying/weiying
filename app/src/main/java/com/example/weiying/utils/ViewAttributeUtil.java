@@ -61,7 +61,8 @@ public class ViewAttributeUtil {
         TypedArray ta = theme.obtainStyledAttributes(new int[]{paramInt});
         Drawable drawable = ta.getDrawable(0);
         if (null != ci) {
-            (ci.getView()).setBackgroundDrawable(drawable);
+//            (ci.getView()).setBackgroundDrawable(drawable);
+            (ci.getView()).setBackground(drawable);
         }
         ta.recycle();
     }
