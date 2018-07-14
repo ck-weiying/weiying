@@ -12,10 +12,12 @@ import com.example.weiying.view.interfaces.IBaseView;
 
 public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements IBaseView {
     public  T fragments;
+    public View view;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(setChildContenView(),container,false);
+        view = inflater.inflate(setChildContenView(),container,false);
         initView(view);
         initDataBase();
         initData();

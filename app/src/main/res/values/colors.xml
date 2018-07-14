@@ -4,7 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-
+    <color name="colorBlack">#000</color>
+    <color name="colorWrite">#FFF</color>
+    <color name="colorAlpha">#4bfafafa</color>
+    <color name="colorgaryer">#55000000</color>
+    <color name="color_TiShi_bw">#aaffffff</color>
+    
     <color name="white_translucent">#30FFFFFF</color>
     <color name="white_translucent_20">#20FFFFFF</color>
     <color name="black_translucent">#50000000</color>

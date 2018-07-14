@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_3">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAlpha"
+        android:padding="@dimen/dp_2">
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sift_contentitem_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            app:placeholderImage="@drawable/card_bg_def"
+            fresco:overlayImage="@drawable/colorAlpha"
+            fresco:roundWithOverlayColor="@color/colorWhite"
+            fresco:roundedCornerRadius="20dp"
+            fresco:roundingBorderColor="@color/colorAlpha"
+            fresco:roundingBorderWidth="2dp"
+            fresco:viewAspectRatio="1" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/sift_content_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:textSize="@dimen/dp_4" />
+</LinearLayout>

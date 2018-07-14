@@ -26,6 +26,8 @@
             android:name=".view.activity.MainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".view.activity.SpecialListActivity"></activity>
+        <activity android:name=".view.activity.SiftDetailsActivity"></activity>
+        <activity android:name=".view.activity.DetailsActivity"/>
     </application>
 
 </manifest>
