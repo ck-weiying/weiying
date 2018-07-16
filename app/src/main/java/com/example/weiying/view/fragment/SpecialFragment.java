@@ -19,6 +19,7 @@ import com.example.weiying.view.customview.ColorRelativeLayout;
 import com.example.weiying.view.interfaces.ISpecialView;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class SpecialFragment extends BaseFragment<SpecialPresenter> implements I
     private ColorRelativeLayout mTitle;
     private RecyclerView mSpecialRecycler;
     private SmartRefreshLayout mSpecialSmart;
+    private int page=0;
+    private int total;
     @Inject
     SpecialPresenter specialPresenter;
     private SpecialAdapter specialAdapter;
@@ -48,15 +51,17 @@ public class SpecialFragment extends BaseFragment<SpecialPresenter> implements I
         mTitle_name =(TextView) view.findViewById(R.id.title_name);
         mSpecialRecycler = (RecyclerView) view.findViewById(R.id.special_recycler);
         mSpecialSmart = (SmartRefreshLayout) view.findViewById(R.id.special_Smart);
+        specialAdapter = new SpecialAdapter(getActivity());
+        mSpecialRecycler.setAdapter(specialAdapter);
+        mSpecialSmart.setEnableAutoLoadMore(false);
         DaggerMainPresenterComponent
                 .builder()
                 .build()
                 .inject(this);
-        
     }
     @Override
     void initData() {
-       specialPresenter.getSpecialPresenter();
+        specialPresenter.getSpecialPresenter();
        //设置标题
        mTitle_name.setText("专题");
        mTitle.setBackgroundColor(Color.BLUE);
@@ -64,9 +69,22 @@ public class SpecialFragment extends BaseFragment<SpecialPresenter> implements I
        mSpecialSmart.setOnRefreshListener(new OnRefreshListener() {
            @Override
            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-               mSpecialSmart.finishRefresh(1000);
+               page=1;
+               specialPresenter.getSpecialPresenter();
            }
        });
+        //上拉加载
+        mSpecialSmart.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                ++page;
+                if (page <= ((total+4)/5)){
+                    specialPresenter.getSpecialPresenter();
+                }else {
+                    mSpecialSmart.finishLoadMore();
+                }
+            }
+        });
     }
     @Override
     SpecialPresenter setFragments() {
@@ -82,15 +100,17 @@ public class SpecialFragment extends BaseFragment<SpecialPresenter> implements I
 
     @Override
     public void onSuccess(SpecialBean specialBean) {
+        this.specialBean=specialBean;
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2);
         gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mSpecialRecycler.setLayoutManager(gridLayoutManager);
-        List<SpecialBean.RetBean.ListBean.ChildListBean> list=new ArrayList<>();
-        List<SpecialBean.RetBean.ListBean.ChildListBean> childList = specialBean.getRet().getList().get(0).getChildList();
-        list.addAll(childList);
-        specialAdapter = new SpecialAdapter(getActivity(),list);
-        mSpecialRecycler.setAdapter(specialAdapter);
-
+       if(specialBean.getRet().getList()!=null){
+          specialAdapter.getData(specialBean.getRet().getList()); 
+       }else {
+           specialAdapter.getDataClear(null);
+       }
+        mSpecialSmart.finishRefresh();
+        mSpecialSmart.finishLoadMore();
     }
     @Override
     public void Failed(String error) {

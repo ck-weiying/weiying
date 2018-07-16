@@ -1,7 +1,7 @@
 package com.example.weiying.view.adapter;
 
 import android.content.Context;
-import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.weiying.R;
-import com.example.weiying.model.bean.SpecialBean;
-import com.example.weiying.view.activity.SpecialListActivity;
+import com.example.weiying.model.bean.SpecialListBean;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -19,14 +18,14 @@ import java.util.List;
 
 public class SpecialListAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<SpecialBean.RetBean.ListBean.ChildListBean> list=new ArrayList<>();
+    private List<SpecialListBean.RetBean.ListBean> list=new ArrayList<>();
 
-    public SpecialListAdapter(Context context, List<SpecialBean.RetBean.ListBean.ChildListBean> list) {
+    public SpecialListAdapter(Context context,List<SpecialListBean.RetBean.ListBean> list) {
         this.context=context;
         this.list=list;
     }
     //清除数据
-    public void setDataClear(List<SpecialBean.RetBean.ListBean.ChildListBean> list){
+    public void setDataClear(List<SpecialListBean.RetBean.ListBean> list){
         this.list.clear();
         if (list!=null){
             this.list.addAll(list);
@@ -34,7 +33,7 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
     //获取数据
-    public void setData(List<SpecialBean.RetBean.ListBean.ChildListBean> list){
+    public void setData(List<SpecialListBean.RetBean.ListBean> list){
         this.list.addAll(list);
         notifyDataSetChanged();
     }
@@ -47,9 +46,14 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyViewHolder mHolder=(MyViewHolder)holder;
+//        String pic = list.get(position).getPic();
+//        String pic = list.get(position).getChildList().get(0).getPic();
+//        mHolder.special_recycler_iv.setImageURI(pic);
+//        mHolder.special_recycler_title.setText(list.get(position).getTitle());
+          mHolder.special_recycler_title.setText(list.get(position).getTitle());
         String pic = list.get(position).getPic();
-        mHolder.special_recycler_iv.setImageURI(pic);
-        mHolder.special_recycler_title.setText(list.get(position).getTitle());
+        Uri uri = Uri.parse(pic);
+        mHolder.special_recycler_iv.setImageURI(uri);
         mHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,7 +65,7 @@ public class SpecialListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list==null ? 0:list.size();
     }
 
     private class MyViewHolder extends RecyclerView.ViewHolder {

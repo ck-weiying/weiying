@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public class SpecialPresenter  extends BasePresenter <ISpecialView>{
@@ -25,12 +26,28 @@ public class SpecialPresenter  extends BasePresenter <ISpecialView>{
         observable.subscribeOn(Schedulers.io())
                   .observeOn(AndroidSchedulers.mainThread())
                  .subscribe(new Consumer<SpecialBean>() {
-        @Override
-        public void accept(SpecialBean specialBean) throws Exception {
-               
-            getMiBaseView().onSuccess(specialBean);
-               
-        }
-    });
+                     @Override
+                     public void accept(SpecialBean specialBean) throws Exception {
+                      getMiBaseView().onSuccess(specialBean);  
+                     }
+                 });
+//         observable.subscribeOn(Schedulers.io())
+//        .observeOn(AndroidSchedulers.mainThread())
+//        .subscribe(new DisposableObserver<SpecialBean>() {
+//            @Override
+//            public void onNext(SpecialBean specialBean) {
+//                getMiBaseView().onSuccess(specialBean);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });        
 }
 }

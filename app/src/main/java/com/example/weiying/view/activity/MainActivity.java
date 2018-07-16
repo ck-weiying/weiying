@@ -39,12 +39,12 @@ public class MainActivity extends BaseActivity<MainPresenter> {
                 .setFontSize(20)
                 .setTabPadding(20,12,10)
                 .setChangeColor(Color.RED,Color.GRAY)
-                .addTabItem("精选",R.drawable.found_select,R.drawable.found, SiftFragment.class)
-                .addTabItem("专题",R.drawable.special_select,R.drawable.special, SpecialFragment.class)
-                .addTabItem("发现",R.drawable.fancy_select,R.drawable.fancy, FindFragment.class)
-                .addTabItem("现场",R.drawable.shipin,R.drawable.video, SceneFragment.class)
-                .addTabItem("我的",R.drawable.my_select,R.drawable.my, MyFragment.class)
-                .setTabBarBackgroundResource(R.drawable.bottom_bg)
+                .addTabItem("精选",R.mipmap.found_select,R.mipmap.found, SiftFragment.class)
+                .addTabItem("专题",R.mipmap.special_select,R.mipmap.special, SpecialFragment.class)
+                .addTabItem("发现",R.mipmap.fancy_select,R.mipmap.fancy, FindFragment.class)
+                .addTabItem("现场",R.mipmap.shipin,R.mipmap.video, SceneFragment.class)
+                .addTabItem("我的",R.mipmap.my_select,R.mipmap.my, MyFragment.class)
+                .setTabBarBackgroundResource(R.mipmap.bottom_bg)
                 .setOnTabChangeListener(new BottomTabBar.OnTabChangeListener() {
                     @Override
                     public void onTabChange(int position, String name, View view) {

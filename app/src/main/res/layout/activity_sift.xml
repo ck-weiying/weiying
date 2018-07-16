@@ -73,13 +73,13 @@
                 android:text="精彩专题"
                 android:textSize="@dimen/sp_6" />
         </LinearLayout>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sift_recycle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/sift_content_type"
-            android:scrollbars="none"></android.support.v7.widget.RecyclerView>
+            android:scrollbars="none">
+        </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
 </ScrollView>
