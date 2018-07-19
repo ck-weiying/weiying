@@ -8,7 +8,6 @@
     tools:context=".view.activity.MainActivity">
 
     <com.example.weiying.view.customview.ColorRelativeLayout
-        android:id="@+id/menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/menuBackground">

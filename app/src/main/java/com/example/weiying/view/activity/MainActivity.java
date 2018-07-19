@@ -27,6 +27,7 @@ import com.example.weiying.view.customview.ResideLayout;
 import com.example.weiying.view.fragment.DiscoveryFragment;
 import com.example.weiying.view.fragment.FeaturedFragment;
 import com.example.weiying.view.fragment.FeaturesFragment;
+import com.example.weiying.view.fragment.LiveFragment;
 import com.example.weiying.view.fragment.MineFragment;
 import com.hjm.bottomtabbar.BottomTabBar;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -61,8 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setFontSize(font_size)
                 .addTabItem("精选", R.mipmap.found_select,R.mipmap.found, FeaturedFragment.class)
                 .addTabItem("专题",R.mipmap.special_select,R.mipmap.special,FeaturesFragment.class)
+                .addTabItem("直播",R.mipmap.fancy_select,R.mipmap.fancy,LiveFragment.class)
                 .addTabItem("发现",R.mipmap.fancy_select,R.mipmap.fancy,DiscoveryFragment.class)
-                .addTabItem("直播",R.mipmap.fancy_select,R.mipmap.fancy,DiscoveryFragment.class)
                 .addTabItem("我的",R.mipmap.my_select,R.mipmap.my,MineFragment.class)
                 .setTabBarBackgroundResource(R.mipmap.bottom_bg)
                 .isShowDivider(false);

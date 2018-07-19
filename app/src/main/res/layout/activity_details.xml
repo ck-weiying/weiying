@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.weiying.view.customview.ColorLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    android:orientation="vertical"
+    tools:context=".view.activity.DetailsActivity">
+
+    <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
+        android:id="@+id/detail_player"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_300" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/detail_tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="center_horizontal"
+        app:tabIndicatorColor="@android:color/holo_green_dark"
+        app:tabSelectedTextColor="@android:color/holo_green_dark"
+        app:tabTextColor="@color/white" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/detail_vp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</com.example.weiying.view.customview.ColorLinearLayout>

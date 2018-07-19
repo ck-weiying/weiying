@@ -1,8 +1,11 @@
 package com.example.weiying.model.bean;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 精选
  * author:Created by WangZhiQiang on 2018/7/12.
  */
 public class FeaturedBean {
@@ -41,14 +44,14 @@ public class FeaturedBean {
     }
 
     public static class RetBean {
-        private List<HotSearchListBean> hotSearchList;
+        private ArrayList<HotSearchListBean> hotSearchList;
         private List<ListBean> list;
 
-        public List<HotSearchListBean> getHotSearchList() {
+        public ArrayList<HotSearchListBean> getHotSearchList() {
             return hotSearchList;
         }
 
-        public void setHotSearchList(List<HotSearchListBean> hotSearchList) {
+        public void setHotSearchList(ArrayList<HotSearchListBean> hotSearchList) {
             this.hotSearchList = hotSearchList;
         }
 
@@ -60,7 +63,7 @@ public class FeaturedBean {
             this.list = list;
         }
 
-        public static class HotSearchListBean {
+        public static class HotSearchListBean implements Serializable {
             /**
              * refCounter : 1
              * cnname : xingjichuanyue

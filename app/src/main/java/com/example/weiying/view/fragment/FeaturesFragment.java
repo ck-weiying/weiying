@@ -36,4 +36,10 @@ public class FeaturesFragment extends BaseFragment<FeaturesPresenter> implements
     int setChildContentView() {
         return R.layout.fragment_features;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getPresenter().detachView();
+    }
 }

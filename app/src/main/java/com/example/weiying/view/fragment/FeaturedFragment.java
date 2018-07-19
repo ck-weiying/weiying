@@ -1,9 +1,9 @@
 package com.example.weiying.view.fragment;
 
+import android.content.Intent;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.example.weiying.R;
 import com.example.weiying.model.bean.FeaturedBean;
 import com.example.weiying.presenter.FeaturedPresenter;
+import com.example.weiying.view.activity.DetailsActivity;
+import com.example.weiying.view.activity.SearchActivity;
 import com.example.weiying.view.adapter.FeaturedAdapter;
 import com.example.weiying.view.customview.ColorRelativeLayout;
 import com.example.weiying.view.customview.ColorTextView;
@@ -35,11 +37,9 @@ public class FeaturedFragment extends BaseFragment<FeaturedPresenter> implements
     private ColorRelativeLayout title;
     private ColorTextView title_name;
 
-    private FeaturedBean featuredBean=new FeaturedBean();
-    private List<FeaturedBean.RetBean.ListBean> contentList = new ArrayList<>();
+    private ArrayList<FeaturedBean.RetBean.HotSearchListBean> hotSearchList = new ArrayList<>();
     private FeaturedAdapter featuredAdapter;
     private int mScrollY;
-    private List<String> list = new ArrayList<>();
 
     @Override
     void initView(View view) {
@@ -79,13 +79,9 @@ public class FeaturedFragment extends BaseFragment<FeaturedPresenter> implements
     }
 
     @Override
-    public void onSuccess(Object success) {
-        featuredBean= (FeaturedBean) success;
-        for (int i = 0; i < featuredBean.getRet().getList().get(0).getChildList().size(); i++) {
-            if (!(TextUtils.isEmpty(featuredBean.getRet().getList().get(0).getChildList().get(i).getPic()))){
-                list.add(featuredBean.getRet().getList().get(0).getChildList().get(i).getPic());
-            }
-//            list.add(xbanner_list.get(i).getChildList().get(0).getPic().equals("") ? xbanner_list.get(i + 1).getChildList().get(0).getPic() : xbanner_list.get(i).getChildList().get(0).getPic());
+    public void onSuccess(final List<String> list, final List<String> listUrl,List<FeaturedBean.RetBean.ListBean> contentList,ArrayList<FeaturedBean.RetBean.HotSearchListBean> hotSearchList) {
+        if (hotSearchList != null) {
+            this.hotSearchList.addAll(hotSearchList);
         }
         xbanner.setData(list, null);
         xbanner.setmAdapter(new XBanner.XBannerAdapter() {
@@ -94,17 +90,25 @@ public class FeaturedFragment extends BaseFragment<FeaturedPresenter> implements
                 Glide.with(getActivity()).load(list.get(position)).into((ImageView) view);
             }
         });
-        contentList.add(featuredBean.getRet().getList().get(2));
-        contentList.add(featuredBean.getRet().getList().get(1));
-        contentList.add(featuredBean.getRet().getList().get(4));
-        contentList.add(featuredBean.getRet().getList().get(6));
-        contentList.add(featuredBean.getRet().getList().get(7));
+        xbanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
+            @Override
+            public void onItemClick(XBanner banner, int position) {
+                DetailsActivity.start(getActivity(),listUrl.get(position));
+            }
+        });
         featuredAdapter.setData(contentList);
     }
+    @Override
+    public void onSuccess(Object success) { }
 
     @Override
     public void onClick(View v) {
-//        startActivity(new Intent(getActivity(), DetailsActivity.class));
+        if (!hotSearchList.isEmpty()){
+            Intent intent = new Intent(getActivity(), SearchActivity.class);
+            intent.putExtra("hotSearchList",hotSearchList);
+            getActivity().startActivity(intent);
+        }
+//            getActivity().overridePendingTransition(R.anim.base_slide_right_in,R.anim.base_slide_right_out);
     }
 
     @Override

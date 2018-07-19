@@ -1,9 +1,9 @@
 package com.example.weiying.view.interfaces;
 
 /**
- * 发现
+ * 精选
  * author:Created by WangZhiQiang on 2018/7/9.
  */
-public interface IDiscoveryView extends IBaseView{
-    void hidLoading();
+public interface ICommentView extends IBaseView{
+    void onSuccess(Object success);
 }

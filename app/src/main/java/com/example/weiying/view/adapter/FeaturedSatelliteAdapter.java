@@ -3,7 +3,6 @@ package com.example.weiying.view.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.example.weiying.R;
 import com.example.weiying.model.bean.FeaturedBean;
 import com.example.weiying.utils.FrescoUtil;
+import com.example.weiying.view.activity.DetailsActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -27,7 +27,6 @@ public class FeaturedSatelliteAdapter extends RecyclerView.Adapter<FeaturedSatel
     public FeaturedSatelliteAdapter(Context context,List<FeaturedBean.RetBean.ListBean.ChildListBean> list) {
         this.context = context;
         this.list=list;
-        Log.e("ChildListBean", list.toString());
     }
 
     @NonNull
@@ -39,13 +38,14 @@ public class FeaturedSatelliteAdapter extends RecyclerView.Adapter<FeaturedSatel
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FeaturedSatelliteHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FeaturedSatelliteHolder holder, final int position) {
         FrescoUtil.setJianJin(list.get(position).getPic(),holder.featured_satellite_item_sdv);
         holder.featured_satellite_item_tv.setText(list.get(position).getTitle());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                context.startActivity(new Intent(context, VideoActivity.class));
+                DetailsActivity.start(context,list.get(position).getDataId());
             }
         });
     }

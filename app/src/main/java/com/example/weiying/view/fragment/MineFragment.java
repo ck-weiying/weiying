@@ -36,4 +36,10 @@ public class MineFragment extends BaseFragment<MinePresenter> implements IMineVi
     int setChildContentView() {
         return R.layout.fragment_mine;
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getPresenter().detachView();
+    }
 }

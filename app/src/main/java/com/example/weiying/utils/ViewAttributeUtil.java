@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.weiying.view.customview.RoundedImageView;
 import com.example.weiying.view.interfaces.ColorUiInterface;
 
 /**
@@ -31,6 +32,10 @@ public class ViewAttributeUtil {
 
     public static int getBackgroundAttibute(AttributeSet attr) {
         return getAttributeValue(attr, android.R.attr.background);
+    }
+
+    public static int getCardBackgroundAttibute(AttributeSet attr) {
+        return getAttributeValue(attr, android.R.attr.src);
     }
 
     public static int getCheckMarkAttribute(AttributeSet attr) {
@@ -61,8 +66,16 @@ public class ViewAttributeUtil {
         TypedArray ta = theme.obtainStyledAttributes(new int[]{paramInt});
         Drawable drawable = ta.getDrawable(0);
         if (null != ci) {
-//            (ci.getView()).setBackgroundDrawable(drawable);
-            (ci.getView()).setBackground(drawable);
+            (ci.getView()).setBackgroundDrawable(drawable);
+        }
+        ta.recycle();
+    }
+
+    public static void applyCardBackgroundDrawable(ColorUiInterface ci, Resources.Theme theme, int paramInt) {
+        TypedArray ta = theme.obtainStyledAttributes(new int[]{paramInt});
+        Drawable drawable = ta.getDrawable(0);
+        if (null != ci) {
+            ((RoundedImageView)ci.getView()).setImageDrawable(drawable);
         }
         ta.recycle();
     }
