@@ -17,6 +17,7 @@ import com.example.weiying.application.MyApp;
 import com.example.weiying.model.bean.LiveBean;
 import com.example.weiying.presenter.LivePresenter;
 import com.example.weiying.view.activity.LoginActivity;
+import com.example.weiying.view.activity.PlayStreamActivity;
 import com.example.weiying.view.activity.PushStreamActivity;
 import com.example.weiying.view.adapter.LiveAdapter;
 import com.example.weiying.view.interfaces.ILiveView;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 public class LiveFragment extends BaseFragment<LivePresenter> implements ILiveView,View.OnClickListener{
     private RecyclerView live_rv;
-    private Button push_stream_btn;
+//    private Button push_stream_btn;
     private Button zhu;
     private boolean flag;
 
@@ -40,9 +41,9 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements ILiveVi
     @Override
     void initView(View view) {
         live_rv = view.findViewById(R.id.live_rv);
-        push_stream_btn = view.findViewById(R.id.push_stream_btn);
+//        push_stream_btn = view.findViewById(R.id.push_stream_btn);
         zhu = view.findViewById(R.id.zhu);
-        push_stream_btn.setOnClickListener(this);
+//        push_stream_btn.setOnClickListener(this);
         zhu.setOnClickListener(this);
     }
 
@@ -60,24 +61,37 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements ILiveVi
     public void onSuccess(Object success) {
         liveBean= (LiveBean) success;
         if (!TextUtils.isEmpty(liveBean.getStatus()) && liveBean.getStatus().contentEquals("0000")){
+            liveBean.getResult().add(0,new LiveBean.ResultBean());
             liveAdapter.setData(liveBean.getResult());
+            liveAdapter.getCallBackView(new LiveAdapter.CallBackView() {
+                @Override
+                public void CallBack(View view, final int position, final String address) {
+                    view.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (position==0){
+                                if (flag){
+                                    int userId = MyApp.sharedPreferences.getInt("userId", 0);
+                                    if (userId==0){
+                                        Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
+                                        LoginActivity.start(getActivity());
+                                    }else {
+                                        PushStreamActivity.start(getActivity(),userId);
+                                    }
+                                }
+                            }else {
+                                PlayStreamActivity.start(getActivity(),address);
+                            }
+                        }
+                    });
+                }
+            });
         }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.push_stream_btn:
-                if (flag){
-                    int userId = MyApp.sharedPreferences.getInt("userId", 0);
-                    if (userId==0){
-                        Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
-                        LoginActivity.start(getActivity());
-                    }else {
-                        PushStreamActivity.start(getActivity(),userId);
-                    }
-                }
-                break;
             case R.id.zhu:
                 MyApp.editor.clear().commit();
                 break;

@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/live_item_sdv"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_170"
         android:layout_height="wrap_content"
         app:placeholderImage="@mipmap/ic_launcher"/>
     <TextView

@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.example.weiying.R;
 import com.example.weiying.model.bean.LiveBean;
 import com.example.weiying.utils.FrescoUtil;
-import com.example.weiying.view.activity.PlayStreamActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.ArrayList;
@@ -23,6 +22,7 @@ import java.util.List;
 public class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.LiveHolder>{
     private Context context;
     private List<LiveBean.ResultBean> list=new ArrayList<>();
+    private CallBackView callBackView;
 
     public LiveAdapter(Context context) {
         this.context = context;
@@ -34,6 +34,10 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.LiveHolder>{
         notifyDataSetChanged();
     }
 
+    public void getCallBackView(CallBackView callBackView){
+        this.callBackView=callBackView;
+    }
+
     @NonNull
     @Override
     public LiveHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -43,16 +47,18 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.LiveHolder>{
     }
 
     @Override
-    public void onBindViewHolder(@NonNull LiveHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull LiveHolder holder, int position) {
         String urlIco="http://7xi8d6.com1.z0.glb.clouddn.com/20180102083655_3t4ytm_Screenshot.jpeg";
-        holder.live_item_tv.setText(list.get(position).getNickName());
-        FrescoUtil.setControllerListener(holder.live_item_sdv,urlIco, (int) context.getResources().getDimension(R.dimen.dp_170));
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PlayStreamActivity.start(context,list.get(position).getAddress());
-            }
-        });
+        if (position==0){
+            holder.live_item_sdv.setImageResource(R.mipmap.live);
+            holder.live_item_tv.setText("开始直播");
+        }else {
+            FrescoUtil.setControllerListener(holder.live_item_sdv,urlIco, (int) context.getResources().getDimension(R.dimen.dp_170));
+            holder.live_item_tv.setText(list.get(position).getNickName());
+        }
+        if (callBackView!=null){
+            callBackView.CallBack(holder.itemView,position,list.get(position).getAddress());
+        }
     }
     @Override
     public int getItemCount() {
@@ -68,5 +74,9 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.LiveHolder>{
             live_item_sdv=view.findViewById(R.id.live_item_sdv);
             live_item_tv=view.findViewById(R.id.live_item_tv);
         }
+    }
+
+    public interface CallBackView {
+        void CallBack(View view,int position, String address);
     }
 }
