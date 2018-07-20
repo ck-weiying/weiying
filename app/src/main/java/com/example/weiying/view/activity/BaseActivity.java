@@ -2,6 +2,7 @@ package com.example.weiying.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.example.weiying.presenter.BasePresenter;
 import com.example.weiying.view.interfaces.IBaseView;
@@ -11,11 +12,13 @@ import com.example.weiying.view.interfaces.IBaseView;
  */
 public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements IBaseView {
     private P p;
+    private View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(setChildContentView());
+        rootView = getLayoutInflater().from(this).inflate(setChildContentView(), null);
+        setContentView(rootView);
 
         initView();
 
@@ -31,6 +34,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         }
 
         initData();
+    }
+    public View getLayoutView() {
+        return rootView;
     }
 
     public P getPresenter() {
