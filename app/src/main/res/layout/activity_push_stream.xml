@@ -10,15 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <EditText
-        android:id="@+id/url"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:text="rtmp://172.17.8.100/live/xyj"
-        android:padding="10dp"
-        android:textColor="#FFFFFF"
-        android:textSize="14dp" />
+    <!--<EditText-->
+        <!--android:id="@+id/url"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:text="rtmp://172.17.8.100/live/xyj"-->
+        <!--android:padding="10dp"-->
+        <!--android:textColor="#FFFFFF"-->
+        <!--android:textSize="14dp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.example.weiying.view.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.PowerManager;
 import android.view.View;
@@ -11,19 +12,15 @@ import com.dou361.ijkplayer.listener.OnShowThumbnailListener;
 import com.dou361.ijkplayer.widget.PlayStateParams;
 import com.dou361.ijkplayer.widget.PlayerView;
 import com.example.weiying.R;
-import com.example.weiying.model.bean.LiveBean;
 import com.example.weiying.presenter.PlayStreamPresenter;
 import com.example.weiying.utils.MediaUtils;
 import com.example.weiying.view.interfaces.IPlayStreamView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayStreamActivity extends BaseActivity<PlayStreamPresenter> implements IPlayStreamView{
     private PlayerView player;
     private Context mContext;
     private View rootView;
-    private List<LiveBean> list;
+//    private List<LiveBean> list;
     private String url = "rtmp://172.17.8.100/live/xyj";
     private String title = "直播";
     private PowerManager.WakeLock wakeLock;
@@ -32,6 +29,7 @@ public class PlayStreamActivity extends BaseActivity<PlayStreamPresenter> implem
     void initView() {
         this.mContext = this;
         rootView =getLayoutView();
+        url=getIntent().getStringExtra("address");
         /**常亮*/
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "liveTAG");
@@ -40,7 +38,7 @@ public class PlayStreamActivity extends BaseActivity<PlayStreamPresenter> implem
 
     @Override
     void initData() {
-        final String url="http://7xi8d6.com1.z0.glb.clouddn.com/20180122090204_A4hNiG_Screenshot.jpeg";
+        final String urlIco="http://7xi8d6.com1.z0.glb.clouddn.com/20180122090204_A4hNiG_Screenshot.jpeg";
         player = new PlayerView(this, rootView)
                 .setTitle(title)
                 .setScaleType(PlayStateParams.fitparent)
@@ -53,7 +51,7 @@ public class PlayStreamActivity extends BaseActivity<PlayStreamPresenter> implem
                     @Override
                     public void onShowThumbnail(ImageView ivThumbnail) {
                         Glide.with(mContext)
-                                .load(url)
+                                .load(urlIco)
                                 .placeholder(R.color.black)
                                 .error(R.color.white)
                                 .into(ivThumbnail);
@@ -65,12 +63,18 @@ public class PlayStreamActivity extends BaseActivity<PlayStreamPresenter> implem
 
     @Override
     public void onSuccess(Object success) {
-        list = new ArrayList<>();
-        if (list.size() > 1) {
-            url = list.get(1).getLiveStream();
-            title = list.get(1).getNickname();
-        }
+//        list = new ArrayList<>();
+//        if (list.size() > 1) {
+//            url = list.get(1).getLiveStream();
+//            title = list.get(1).getNickname();
+//        }
         player.setPlaySource(url).startPlay();
+    }
+
+    public static void start(Context context,String address) {
+        Intent starter = new Intent(context, PlayStreamActivity.class);
+        starter.putExtra("address", address);
+        context.startActivity(starter);
     }
 
     @Override
@@ -97,6 +101,7 @@ public class PlayStreamActivity extends BaseActivity<PlayStreamPresenter> implem
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        getPresenter().detachView();
         if (player != null) {
             player.onDestroy();
         }

@@ -1,15 +1,19 @@
 package com.example.weiying.view.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.weiying.R;
+import com.example.weiying.model.bean.CloseLiveBean;
+import com.example.weiying.model.bean.OpenLiveBean;
 import com.example.weiying.presenter.PushStreamPresenter;
 import com.example.weiying.view.interfaces.IPushStreamView;
 import com.github.faucamp.simplertmp.RtmpHandler;
@@ -28,17 +32,21 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
 
     private SrsCameraView cameraView;
     private SrsPublisher srsPublisher;
-    private EditText url;
+
     private Button publish;
     private Button swCam;
     private Button swEnc;
 
     private String rtmpUrl;
+    private int userId;
+    private boolean close;
+    private OpenLiveBean openLiveBean=new OpenLiveBean();
+    private CloseLiveBean closeLiveBean=new CloseLiveBean();
 
     @Override
     void initView() {
         cameraView = findViewById(R.id.glsurfaceview_camera);
-        url = findViewById(R.id.url);
+
         publish = findViewById(R.id.publish);
         swCam = findViewById(R.id.swCam);
         swEnc = findViewById(R.id.swEnc);
@@ -52,6 +60,7 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
 
     @Override
     void initData() {
+        userId=getIntent().getIntExtra("userId",0);
         //编码状态回调
         srsPublisher.setEncodeHandler(new SrsEncodeHandler(this));
         srsPublisher.setRecordHandler(new SrsRecordHandler(this));
@@ -75,25 +84,9 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
             //开始/停止推流
             case R.id.publish:
                 if (publish.getText().toString().contentEquals("开始")) {
-                    rtmpUrl = url.getText().toString();
-                    if (TextUtils.isEmpty(rtmpUrl)) {
-                        Toast.makeText(getApplicationContext(), "地址不能为空！", Toast.LENGTH_SHORT).show();
-                    }
-                    srsPublisher.startPublish(rtmpUrl);
-                    srsPublisher.startCamera();
-
-                    if (swEnc.getText().toString().contentEquals("软编码")) {
-                        Toast.makeText(getApplicationContext(), "当前使用硬编码", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "当前使用软编码", Toast.LENGTH_SHORT).show();
-                    }
-                    publish.setText("停止");
-                    swEnc.setEnabled(false);
+                    getPresenter().getOpenLive(userId);
                 } else if (publish.getText().toString().contentEquals("停止")) {
-                    srsPublisher.stopPublish();
-                    srsPublisher.stopRecord();
-                    publish.setText("开始");
-                    swEnc.setEnabled(true);
+                    getPresenter().getCloseLive(userId);
                 }
                 break;
             //切换摄像头
@@ -114,6 +107,65 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
     }
 
     @Override
+    public void onSuccess(Object success,int flag) {
+        switch (flag){
+            case 1:
+                openLiveBean= (OpenLiveBean) success;
+                Toast.makeText(this, openLiveBean.getMessage(), Toast.LENGTH_SHORT).show();
+                if (!TextUtils.isEmpty(openLiveBean.getStatus()) && openLiveBean.getStatus().contentEquals("0000")){
+                    rtmpUrl=openLiveBean.getAddress();
+                    close=false;
+                    Log.e("PushStreamPresenter","rtmpUrl:"+rtmpUrl );
+                    if (TextUtils.isEmpty(rtmpUrl)) {
+                        Toast.makeText(getApplicationContext(), "地址不能为空！", Toast.LENGTH_SHORT).show();
+                    }
+                    srsPublisher.startPublish(rtmpUrl);
+                    srsPublisher.startCamera();
+
+                    if (swEnc.getText().toString().contentEquals("软编码")) {
+                        Toast.makeText(getApplicationContext(), "当前使用硬编码", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "当前使用软编码", Toast.LENGTH_SHORT).show();
+                    }
+                    publish.setText("停止");
+                    swEnc.setEnabled(false);
+                }
+                break;
+            case 2:
+                closeLiveBean= (CloseLiveBean) success;
+                Toast.makeText(this, closeLiveBean.getMessage(), Toast.LENGTH_SHORT).show();
+                if (!TextUtils.isEmpty(closeLiveBean.getStatus()) && closeLiveBean.getStatus().contentEquals("0000")){
+                    srsPublisher.stopPublish();
+                    srsPublisher.stopRecord();
+                    publish.setText("开始");
+                    swEnc.setEnabled(true);
+                    if (close){
+                        finish();
+                    }
+                }
+                break;
+        }
+    }
+    @Override
+    public void onSuccess(Object success) { }
+
+    public static void start(Context context, int userId) {
+        Intent starter = new Intent(context, PushStreamActivity.class);
+        starter.putExtra("userId", userId);
+        context.startActivity(starter);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode==KeyEvent.KEYCODE_BACK){
+            close=true;
+            getPresenter().getCloseLive(userId);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         srsPublisher.resumeRecord();
@@ -130,6 +182,7 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
         super.onDestroy();
         srsPublisher.stopPublish();
         srsPublisher.stopRecord();
+        getPresenter().detachView();
     }
 
     @Override
@@ -263,11 +316,6 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
         } catch (Exception e1) {
             Log.e(TAG, e1.toString());
         }
-    }
-
-    @Override
-    public void onSuccess(Object success) {
-
     }
 
     @Override

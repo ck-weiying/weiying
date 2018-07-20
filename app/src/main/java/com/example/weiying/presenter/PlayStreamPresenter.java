@@ -2,7 +2,7 @@ package com.example.weiying.presenter;
 
 import com.example.weiying.model.api.RetrofitInterface;
 import com.example.weiying.model.bean.LiveBean;
-import com.example.weiying.model.http.RetrofitUtil;
+import com.example.weiying.model.http.RetrofitLiveUtil;
 import com.example.weiying.view.interfaces.IPlayStreamView;
 
 /**
@@ -12,7 +12,7 @@ public class PlayStreamPresenter extends BasePresenter<IPlayStreamView>{
     private RetrofitInterface retrofitInterface;
 
     public PlayStreamPresenter() {
-        retrofitInterface = RetrofitUtil.getInstance().getRetrofitInterface();
+        retrofitInterface = RetrofitLiveUtil.getInstance().getRetrofitInterface();
     }
 
     public void getDataFromServer() {

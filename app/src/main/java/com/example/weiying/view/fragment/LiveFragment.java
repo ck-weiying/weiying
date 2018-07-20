@@ -1,19 +1,24 @@
 package com.example.weiying.view.fragment;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.weiying.R;
+import com.example.weiying.application.MyApp;
+import com.example.weiying.model.bean.LiveBean;
 import com.example.weiying.presenter.LivePresenter;
-import com.example.weiying.view.activity.PlayStreamActivity;
+import com.example.weiying.view.activity.LoginActivity;
 import com.example.weiying.view.activity.PushStreamActivity;
+import com.example.weiying.view.adapter.LiveAdapter;
 import com.example.weiying.view.interfaces.ILiveView;
 
 import java.util.ArrayList;
@@ -23,42 +28,58 @@ import java.util.List;
  * author:Created by WangZhiQiang on 2018/7/17.
  */
 public class LiveFragment extends BaseFragment<LivePresenter> implements ILiveView,View.OnClickListener{
+    private RecyclerView live_rv;
     private Button push_stream_btn;
-    private Button play_stream_btn;
+    private Button zhu;
     private boolean flag;
 
+    private LiveBean liveBean=new LiveBean();
+    private LiveAdapter liveAdapter;
+    private StaggeredGridLayoutManager staggeredGridLayoutManager;
 
     @Override
     void initView(View view) {
+        live_rv = view.findViewById(R.id.live_rv);
         push_stream_btn = view.findViewById(R.id.push_stream_btn);
-        play_stream_btn = view.findViewById(R.id.play_stream_btn);
+        zhu = view.findViewById(R.id.zhu);
         push_stream_btn.setOnClickListener(this);
-        play_stream_btn.setOnClickListener(this);
+        zhu.setOnClickListener(this);
     }
 
     @Override
     void initData() {
-
+        liveAdapter = new LiveAdapter(getActivity());
+        live_rv.setAdapter(liveAdapter);
+        staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        live_rv.setLayoutManager(staggeredGridLayoutManager);
+        requestPermissions();
+        getPresenter().getDataFromServer();
     }
 
     @Override
     public void onSuccess(Object success) {
-
+        liveBean= (LiveBean) success;
+        if (!TextUtils.isEmpty(liveBean.getStatus()) && liveBean.getStatus().contentEquals("0000")){
+            liveAdapter.setData(liveBean.getResult());
+        }
     }
 
     @Override
     public void onClick(View v) {
-        requestPermissions();
         switch (v.getId()) {
             case R.id.push_stream_btn:
                 if (flag){
-                    startActivity(new Intent(getActivity(),PushStreamActivity.class));
+                    int userId = MyApp.sharedPreferences.getInt("userId", 0);
+                    if (userId==0){
+                        Toast.makeText(getActivity(), "请先登录", Toast.LENGTH_SHORT).show();
+                        LoginActivity.start(getActivity());
+                    }else {
+                        PushStreamActivity.start(getActivity(),userId);
+                    }
                 }
                 break;
-            case R.id.play_stream_btn:
-                if (flag){
-                    startActivity(new Intent(getActivity(),PlayStreamActivity.class));
-                }
+            case R.id.zhu:
+                MyApp.editor.clear().commit();
                 break;
         }
     }
@@ -71,6 +92,15 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements ILiveVi
     @Override
     int setChildContentView() {
         return R.layout.fragment_live;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            requestPermissions();
+            getPresenter().getDataFromServer();
+        }
     }
 
     /**
@@ -123,6 +153,7 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements ILiveVi
                             Toast.makeText(getActivity(),s+"权限被拒绝了",Toast.LENGTH_SHORT).show();
                         }else{ //授权成功了
                             flag=true;
+                            getPresenter().getDataFromServer();
                         }
                     }
                 }

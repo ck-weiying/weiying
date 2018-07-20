@@ -44,6 +44,9 @@
         <activity android:name=".view.activity.PlayStreamActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
+
+        <activity android:name=".view.activity.LoginActivity"/>
+        <activity android:name=".view.activity.RegisterActivity" />
     </application>
 
 </manifest>
