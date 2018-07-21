@@ -53,8 +53,8 @@ public class LiveAdapter extends RecyclerView.Adapter<LiveAdapter.LiveHolder>{
             holder.live_item_sdv.setImageResource(R.mipmap.live);
             holder.live_item_tv.setText("开始直播");
         }else {
-            FrescoUtil.setControllerListener(holder.live_item_sdv,urlIco, (int) context.getResources().getDimension(R.dimen.dp_170));
-            holder.live_item_tv.setText(list.get(position).getNickName());
+            FrescoUtil.setControllerListener(holder.live_item_sdv,urlIco, (int) context.getResources().getDimension(R.dimen.dp_150));
+            holder.live_item_tv.setText(list.get(position).getNickName()+list.get(position).getUserId());
         }
         if (callBackView!=null){
             callBackView.CallBack(holder.itemView,position,list.get(position).getAddress());

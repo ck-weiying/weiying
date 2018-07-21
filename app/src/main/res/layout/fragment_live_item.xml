@@ -14,5 +14,6 @@
         android:id="@+id/live_item_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/dp_16"
         android:text="昵称"/>
 </LinearLayout>

@@ -109,6 +109,12 @@ public class LiveFragment extends BaseFragment<LivePresenter> implements ILiveVi
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getPresenter().getDataFromServer();
+    }
+
+    @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {

@@ -14,6 +14,9 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+
     <uses-sdk tools:overrideLibrary="tv.danmaku.ijk.media.player_arm64,tv.danmaku.ijk.media.player_x86_64"/>
     <application
         android:name=".application.MyApp"
@@ -40,7 +43,8 @@
         <activity android:name=".view.activity.DetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".view.activity.PushStreamActivity" />
+        <activity android:name=".view.activity.PushStreamActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".view.activity.PlayStreamActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"></activity>

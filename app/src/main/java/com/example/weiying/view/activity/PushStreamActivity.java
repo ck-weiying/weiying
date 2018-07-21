@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.hardware.Camera;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -33,10 +36,12 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
     private SrsCameraView cameraView;
     private SrsPublisher srsPublisher;
 
-    private Button publish;
-    private Button swCam;
-    private Button swEnc;
+    private Button push_stream_onoff_btn;
+    private Button push_stream_camera_btn;
+    private Button push_stream_encode_btn;
+    private Button push_stream_record_btn;
 
+    private String recPath = Environment.getExternalStorageDirectory().getPath() + "/test.mp4";
     private String rtmpUrl;
     private int userId;
     private boolean close;
@@ -47,14 +52,17 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
     void initView() {
         cameraView = findViewById(R.id.glsurfaceview_camera);
 
-        publish = findViewById(R.id.publish);
-        swCam = findViewById(R.id.swCam);
-        swEnc = findViewById(R.id.swEnc);
+        push_stream_onoff_btn = findViewById(R.id.push_stream_onoff_btn);
+        push_stream_camera_btn = findViewById(R.id.push_stream_camera_btn);
+        push_stream_encode_btn = findViewById(R.id.push_stream_encode_btn);
+        push_stream_record_btn = findViewById(R.id.push_stream_record_btn);
 
-        publish.setOnClickListener(this);
-        swCam.setOnClickListener(this);
-        swEnc.setOnClickListener(this);
-
+        push_stream_onoff_btn.setOnClickListener(this);
+        push_stream_camera_btn.setOnClickListener(this);
+        push_stream_encode_btn.setOnClickListener(this);
+        push_stream_record_btn.setOnClickListener(this);
+        //响应屏幕翻转事件
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         srsPublisher = new SrsPublisher(cameraView);
     }
 
@@ -82,28 +90,111 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
     public void onClick(View v) {
         switch (v.getId()) {
             //开始/停止推流
-            case R.id.publish:
-                if (publish.getText().toString().contentEquals("开始")) {
+            case R.id.push_stream_onoff_btn:
+                if (push_stream_onoff_btn.getText().toString().contentEquals("开始")) {
                     getPresenter().getOpenLive(userId);
-                } else if (publish.getText().toString().contentEquals("停止")) {
+                } else if (push_stream_onoff_btn.getText().toString().contentEquals("停止")) {
                     getPresenter().getCloseLive(userId);
                 }
                 break;
             //切换摄像头
-            case R.id.swCam:
+            case R.id.push_stream_camera_btn:
                 srsPublisher.switchCameraFace((srsPublisher.getCamraId() + 1) % Camera.getNumberOfCameras());
                 break;
             //切换编码方式
-            case R.id.swEnc:
-                if (swEnc.getText().toString().contentEquals("软编码")) {
+            case R.id.push_stream_encode_btn:
+                if (push_stream_encode_btn.getText().toString().contentEquals("软编码")) {
                     srsPublisher.switchToSoftEncoder();
-                    swEnc.setText("硬编码");
-                } else if (swEnc.getText().toString().contentEquals("硬编码")) {
+                    push_stream_encode_btn.setText("硬编码");
+                } else if (push_stream_encode_btn.getText().toString().contentEquals("硬编码")) {
                     srsPublisher.switchToHardEncoder();
-                    swEnc.setText("软编码");
+                    push_stream_encode_btn.setText("软编码");
+                }
+                break;
+            //开始记录
+            case R.id.push_stream_record_btn:
+                if (push_stream_record_btn.getText().toString().contentEquals("录制")) {
+                    if (srsPublisher.startRecord(recPath)) {
+                        push_stream_record_btn.setText("暂停");
+                    }
+                } else if (push_stream_record_btn.getText().toString().contentEquals("暂停")) {
+                    srsPublisher.pauseRecord();
+                    push_stream_record_btn.setText("继续");
+                } else if (push_stream_record_btn.getText().toString().contentEquals("继续")) {
+                    srsPublisher.resumeRecord();
+                    push_stream_record_btn.setText("暂停");
                 }
                 break;
         }
+    }
+
+    //设置菜单
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    //菜单操作监听
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //处理动作栏项目点击这里。操作栏将自动处理Home/Up按钮上的点击击，太长了当您在AndroidManifest.xml中指定父活动时。
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        } else {
+            switch (id) {
+                case R.id.cool_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.COOL);
+                    break;
+                case R.id.beauty_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.BEAUTY);
+                    break;
+                case R.id.early_bird_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.EARLYBIRD);
+                    break;
+                case R.id.evergreen_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.EVERGREEN);
+                    break;
+                case R.id.n1977_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.N1977);
+                    break;
+                case R.id.nostalgia_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.NOSTALGIA);
+                    break;
+                case R.id.romance_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.ROMANCE);
+                    break;
+                case R.id.sunrise_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.SUNRISE);
+                    break;
+                case R.id.sunset_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.SUNSET);
+                    break;
+                case R.id.tender_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.TENDER);
+                    break;
+                case R.id.toast_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.TOASTER2);
+                    break;
+                case R.id.valencia_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.VALENCIA);
+                    break;
+                case R.id.walden_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.WALDEN);
+                    break;
+                case R.id.warm_filter:
+                    srsPublisher.switchCameraFilter(MagicFilterType.WARM);
+                    break;
+                case R.id.original_filter:
+                default:
+                    srsPublisher.switchCameraFilter(MagicFilterType.NONE);
+                    break;
+            }
+        }
+        setTitle(item.getTitle());
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -122,13 +213,13 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
                     srsPublisher.startPublish(rtmpUrl);
                     srsPublisher.startCamera();
 
-                    if (swEnc.getText().toString().contentEquals("软编码")) {
+                    if (push_stream_encode_btn.getText().toString().contentEquals("软编码")) {
                         Toast.makeText(getApplicationContext(), "当前使用硬编码", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "当前使用软编码", Toast.LENGTH_SHORT).show();
                     }
-                    publish.setText("停止");
-                    swEnc.setEnabled(false);
+                    push_stream_onoff_btn.setText("停止");
+                    push_stream_encode_btn.setEnabled(false);
                 }
                 break;
             case 2:
@@ -137,8 +228,8 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
                 if (!TextUtils.isEmpty(closeLiveBean.getStatus()) && closeLiveBean.getStatus().contentEquals("0000")){
                     srsPublisher.stopPublish();
                     srsPublisher.stopRecord();
-                    publish.setText("开始");
-                    swEnc.setEnabled(true);
+                    push_stream_onoff_btn.setText("开始");
+                    push_stream_encode_btn.setEnabled(true);
                     if (close){
                         finish();
                     }
@@ -190,8 +281,9 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
         super.onConfigurationChanged(newConfig);
         srsPublisher.stopEncode();
         srsPublisher.stopRecord();
+        push_stream_record_btn.setText("录制");
         srsPublisher.setScreenOrientation(newConfig.orientation);
-        if (publish.getText().toString().contentEquals("停止")) {
+        if (push_stream_onoff_btn.getText().toString().contentEquals("停止")) {
             srsPublisher.startEncode();
         }
         srsPublisher.startCamera();
@@ -204,7 +296,7 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
 
     @Override
     public void onNetworkResume() {
-
+        Toast.makeText(getApplicationContext(), "网络重连", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -239,22 +331,34 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
 
     @Override
     public void onRtmpDisconnected() {
-        Toast.makeText(getApplicationContext(), "未连接服务器", Toast.LENGTH_SHORT).show();
+        if (!close){
+            Toast.makeText(getApplicationContext(), "未连接服务器", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
     public void onRtmpVideoFpsChanged(double fps) {
-
+        Log.i(TAG, String.format("Output Fps: %f", fps));
     }
 
     @Override
     public void onRtmpVideoBitrateChanged(double bitrate) {
-
+        int rate = (int) bitrate;
+        if (rate / 1000 > 0) {
+            Log.i(TAG, String.format("Video bitrate: %f kbps", bitrate / 1000));
+        } else {
+            Log.i(TAG, String.format("Video bitrate: %d bps", rate));
+        }
     }
 
     @Override
     public void onRtmpAudioBitrateChanged(double bitrate) {
-
+        int rate = (int) bitrate;
+        if (rate / 1000 > 0) {
+            Log.i(TAG, String.format("Audio bitrate: %f kbps", bitrate / 1000));
+        } else {
+            Log.i(TAG, String.format("Audio bitrate: %d bps", rate));
+        }
     }
 
     @Override
@@ -279,17 +383,17 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
 
     @Override
     public void onRecordPause() {
-        Toast.makeText(getApplicationContext(), "记录暂停", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "录制暂停", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRecordResume() {
-        Toast.makeText(getApplicationContext(), "记录重新开始", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "录制重新开始", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRecordStarted(String msg) {
-        Toast.makeText(getApplicationContext(), "记录文件: " + msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "录制文件: " + msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -312,7 +416,9 @@ public class PushStreamActivity extends BaseActivity<PushStreamPresenter> implem
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             srsPublisher.stopPublish();
             srsPublisher.stopRecord();
-            publish.setText("开始");
+            push_stream_onoff_btn.setText("开始");
+            push_stream_record_btn.setText("录制");
+            push_stream_encode_btn.setEnabled(true);
         } catch (Exception e1) {
             Log.e(TAG, e1.toString());
         }

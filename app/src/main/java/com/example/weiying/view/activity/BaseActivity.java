@@ -3,7 +3,9 @@ package com.example.weiying.view.activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 
+import com.example.weiying.R;
 import com.example.weiying.presenter.BasePresenter;
 import com.example.weiying.view.interfaces.IBaseView;
 
@@ -17,6 +19,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (setChildContentView()== R.layout.activity_push_stream){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        }
         rootView = getLayoutInflater().from(this).inflate(setChildContentView(), null);
         setContentView(rootView);
 
