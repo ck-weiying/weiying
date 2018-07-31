@@ -86,7 +86,7 @@ public class DiscoveryFragment extends BaseFragment<DiscoveryPresenter> implemen
             contentList.add(featuredBean.getRet().getList().get(1));
             contentList.add(featuredBean.getRet().getList().get(4));
             contentList.add(featuredBean.getRet().getList().get(6));
-            contentList.add(featuredBean.getRet().getList().get(7));
+//            contentList.add(featuredBean.getRet().getList().get(7));
             swipeDeck.removeAllViews();
             swipeDeck.removeAllViews();
             adapter = new SwipeDeckAdapter(getData(),getContext());

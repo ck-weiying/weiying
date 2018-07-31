@@ -1,6 +1,7 @@
 package com.example.weiying.presenter;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.weiying.model.api.RetrofitInterface;
 import com.example.weiying.model.bean.FeaturedBean;
@@ -45,11 +46,12 @@ public class FeaturedPresenter extends BasePresenter<IFeaturedView>{
                                 listUrl.add(featuredBean.getRet().getList().get(0).getChildList().get(i).getDataId());
                             }
                         }
+                        Log.e("错误", "onNext: "+featuredBean.getRet().getList().size());
                         contentList.add(featuredBean.getRet().getList().get(2));
                         contentList.add(featuredBean.getRet().getList().get(1));
                         contentList.add(featuredBean.getRet().getList().get(4));
                         contentList.add(featuredBean.getRet().getList().get(6));
-                        contentList.add(featuredBean.getRet().getList().get(7));
+//                        contentList.add(featuredBean.getRet().getList().get(7));
 
                         getView().onSuccess(list,listUrl,contentList, featuredBean.getRet().getHotSearchList());
                     }
